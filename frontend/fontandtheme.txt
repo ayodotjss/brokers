@@ -1,0 +1,34 @@
+Primary:      #1F4D2B
+Secondary:    #87C38F
+
+Background:   #F4F0BB
+
+Card:         #FFFFFF
+
+Text:         #2A2A2A
+Subtext:      #6F6F6F
+
+Border:       #D8DFC9
+
+Accent:       #6AAE73
+
+Shadow:       rgba(31,77,43,.08)
+
+Headings
+Bebas Neue ⭐⭐⭐⭐⭐
+or 
+Anton
+
+Perfect match for
+
+SOME WEAR
+SUITS
+ABOUT
+FAQ
+APPLY FOR WHITELIST
+Body
+Manrope ⭐⭐⭐⭐⭐
+
+or
+
+Inter

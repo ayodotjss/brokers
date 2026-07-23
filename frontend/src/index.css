@@ -1,0 +1,107 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-primary: #1f4d2b;
+  --color-secondary: #87c38f;
+  --color-cream: #f4f0bb;
+  --color-card: #ffffff;
+  --color-ink: #2a2a2a;
+  --color-subtext: #6f6f6f;
+  --color-line: #d8dfc9;
+  --color-accent: #6aae73;
+
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body: 'Manrope', sans-serif;
+
+  --shadow-broker: 0 10px 40px rgba(31, 77, 43, 0.08);
+  --shadow-broker-lg: 0 24px 70px rgba(31, 77, 43, 0.16);
+}
+
+html {
+  scroll-behavior: initial;
+}
+
+html,
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
+}
+
+::selection {
+  background: var(--color-primary);
+  color: var(--color-cream);
+}
+
+/* thin brand scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 99px;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+}
+
+/* subtle grain over the video so it feels art-directed, not raw footage */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ornamental divider line — like the ref's little flourish */
+.flourish {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.flourish::before,
+.flourish::after {
+  content: '';
+  height: 1px;
+  flex: 1;
+  background: currentColor;
+  opacity: 0.35;
+}
+
+.text-stroke-cream {
+  -webkit-text-stroke: 1px rgba(244, 240, 187, 0.5);
+  color: transparent;
+}
+
+/* vertical brand marquee that flanks the hero video and hides its baked-in
+   side bars. Green octopus silhouettes drift from bottom to top. */
+@keyframes marquee-up {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee-up 26s linear infinite;
+}
+.marquee-logo {
+  background-color: var(--color-secondary);
+  -webkit-mask: url('/logo.png') center / contain no-repeat;
+  mask: url('/logo.png') center / contain no-repeat;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
