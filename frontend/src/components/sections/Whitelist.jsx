@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'motion/react'
 import { useApp } from '../../context/AppContext'
+import { API_BASE } from '../../lib/api'
 import { XIcon, RetweetIcon, HeartIcon, WalletIcon, CheckIcon, LockIcon } from '../Icons'
 
 const EASE = [0.22, 1, 0.36, 1]
@@ -118,7 +119,7 @@ export default function Whitelist() {
     }
     dispatch({ type: 'WL_STATUS', value: 'sending' })
     try {
-      const res = await fetch('/api/whitelist', {
+      const res = await fetch(`${API_BASE}/api/whitelist`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ wallet: wallet.trim(), steps: wlSteps }),
