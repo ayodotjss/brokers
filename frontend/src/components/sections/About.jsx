@@ -87,7 +87,7 @@ function TraitModal({ artwork, onClose }) {
   )
 }
 
-function ArtworkBox({ index, isOpen, canHover, onOpen, onClose, onToggle }) {
+function ArtworkBox({ index, isOpen, canHover, onOpen, onClose, onToggle, className = '' }) {
   const artwork = ARTWORKS[index]
 
   // hover devices reveal on hover; touch devices toggle on tap. Binding both
@@ -98,7 +98,7 @@ function ArtworkBox({ index, isOpen, canHover, onOpen, onClose, onToggle }) {
 
   return (
     <div
-      className="group relative aspect-square w-full cursor-pointer select-none overflow-hidden rounded-2xl border border-line bg-card shadow-broker"
+      className={`group relative aspect-square w-full cursor-pointer select-none overflow-hidden rounded-2xl border border-line bg-card shadow-broker ${className}`}
       {...handlers}
     >
       <ArtworkCanvas src={artwork.src} />
@@ -118,11 +118,18 @@ function ArtworkBox({ index, isOpen, canHover, onOpen, onClose, onToggle }) {
   )
 }
 
+// six slots feeding three galleries:
+//   pos 0,1 → right column (desktop + mobile)
+//   pos 2,3 → mobile-only extra under the right column
+//   pos 4,5 → desktop-only extra under the About copy
+const BOX_COUNT = 6
+
 export default function About() {
-  // two boxes only — restraint. They take turns dissolving to the next piece.
-  const [indices, setIndices] = useState([0, 1])
+  // each slot holds a pool index. Boxes take turns dissolving to the next piece.
+  const [slots, setSlots] = useState([0, 1, 2, 3, 4, 5])
   const [tick, setTick] = useState(0)
-  const [openBox, setOpenBox] = useState(null) // which box (0|1) is showing traits
+  const [openBox, setOpenBox] = useState(null) // which box is showing traits
+  const cursorRef = useRef(BOX_COUNT) // next pool index to introduce
 
   const canHover = useMemo(
     () => (typeof window !== 'undefined' ? window.matchMedia('(hover: hover)').matches : true),
@@ -143,14 +150,33 @@ export default function About() {
     return () => clearInterval(t)
   }, [])
 
+  // advance one box per tick to the next pool image not currently on screen,
+  // so no two boxes ever show the same broker at once
   useEffect(() => {
     if (tick === 0) return
-    setIndices(([a, b]) => {
-      const next = (Math.max(a, b) + 1) % ARTWORKS.length
-      // alternate which box swaps so they never vanish together
-      return tick % 2 === 1 ? [next, b] : [a, next]
+    setSlots((prev) => {
+      const box = (tick - 1) % BOX_COUNT
+      let idx = cursorRef.current % ARTWORKS.length
+      let guard = 0
+      while (prev.includes(idx) && guard < ARTWORKS.length) {
+        idx = (idx + 1) % ARTWORKS.length
+        guard++
+      }
+      cursorRef.current = idx + 1
+      const next = [...prev]
+      next[box] = idx
+      return next
     })
   }, [tick])
+
+  const boxProps = (pos) => ({
+    index: slots[pos],
+    isOpen: openBox === pos,
+    canHover,
+    onOpen: () => setOpenBox(pos),
+    onClose: () => setOpenBox(null),
+    onToggle: () => setOpenBox((cur) => (cur === pos ? null : pos)),
+  })
 
   // lock the page behind the touch modal so it doesn't scroll away
   const modalOpen = !canHover && openBox !== null
@@ -164,7 +190,7 @@ export default function About() {
   }, [modalOpen])
 
   return (
-    <section id="about" className="min-h-screen px-6 py-16 sm:px-10 lg:px-14 lg:py-24">
+    <section id="about" className="px-6 py-16 sm:px-10 lg:min-h-screen lg:px-14 lg:py-24">
       <motion.div
         initial={{ y: 40, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
@@ -206,9 +232,21 @@ export default function About() {
               Welcome to The Broker Exchange, where every deal begins.
             </p>
           </div>
+
+          {/* desktop-only second gallery, sitting in the copy column's dead space */}
+          <div className="mt-10 hidden lg:block">
+            <div className="flourish text-primary">
+              <span className="text-[11px] font-bold uppercase tracking-[0.4em]">From The Vault</span>
+            </div>
+            <div className="mt-5 grid grid-cols-2 gap-6">
+              {[4, 5].map((pos) => (
+                <ArtworkBox key={pos} {...boxProps(pos)} />
+              ))}
+            </div>
+          </div>
         </motion.div>
 
-        {/* artwork preview — two dissolve boxes */}
+        {/* artwork preview — dissolve boxes */}
         <motion.div
           initial={{ y: 40, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
@@ -221,15 +259,12 @@ export default function About() {
             </span>
           </div>
           <div className="mt-5 grid grid-cols-2 gap-4 sm:gap-6">
-            {[0, 1].map((pos) => (
+            {[0, 1, 2, 3].map((pos) => (
               <ArtworkBox
                 key={pos}
-                index={indices[pos]}
-                isOpen={openBox === pos}
-                canHover={canHover}
-                onOpen={() => setOpenBox(pos)}
-                onClose={() => setOpenBox(null)}
-                onToggle={() => setOpenBox((cur) => (cur === pos ? null : pos))}
+                {...boxProps(pos)}
+                // boxes 3 & 4 are the mobile-only extra gallery
+                className={pos > 1 ? 'lg:hidden' : ''}
               />
             ))}
           </div>
@@ -242,7 +277,7 @@ export default function About() {
       {/* touch: full readable trait sheet */}
       <AnimatePresence>
         {modalOpen && (
-          <TraitModal artwork={ARTWORKS[indices[openBox]]} onClose={() => setOpenBox(null)} />
+          <TraitModal artwork={ARTWORKS[slots[openBox]]} onClose={() => setOpenBox(null)} />
         )}
       </AnimatePresence>
     </section>

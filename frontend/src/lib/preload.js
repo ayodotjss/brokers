@@ -3,13 +3,14 @@
 
 const ASSETS = [
   { url: '/logo.png', weight: 1 },
-  { url: '/octo1.png', weight: 2 },
-  { url: '/octo2.png', weight: 2 },
-  { url: '/octo3.png', weight: 2 },
-  { url: '/octo4.png', weight: 2 },
-  { url: '/octo5.png', weight: 2 },
-  { url: '/octo6.png', weight: 2 },
   { url: '/bgvideo.mp4', weight: 8 },
+  // first brokers shown in the galleries — preload so About paints instantly
+  { url: '/octos1.png', weight: 2 },
+  { url: '/octos7.png', weight: 2 },
+  { url: '/octos5.png', weight: 2 },
+  { url: '/octos3.png', weight: 2 },
+  { url: '/octos9.png', weight: 2 },
+  { url: '/octos2.png', weight: 2 },
 ]
 
 async function fetchWithProgress(url, onPct) {
