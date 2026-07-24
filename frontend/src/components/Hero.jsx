@@ -1,8 +1,36 @@
+import { useEffect, useRef } from 'react'
 import { motion } from 'motion/react'
 import { useApp } from '../context/AppContext'
 import { XIcon, ArrowIcon, BookIcon, PenIcon } from './Icons'
 
 const EASE = [0.22, 1, 0.36, 1]
+
+// Mobile browsers (iOS Low Power Mode, Android Data Saver) often refuse to
+// autoplay until the first user gesture, and React doesn't reliably reflect
+// the `muted` attribute. This forces muted + retries play on load and on the
+// first touch/scroll/click so the background never gets stuck on a black frame.
+function useAutoplay(appRevealed) {
+  const ref = useRef(null)
+  useEffect(() => {
+    if (!appRevealed) return
+    const v = ref.current
+    if (!v) return
+    v.muted = true
+    v.defaultMuted = true
+    const play = () => v.play().catch(() => {})
+    play()
+    const opts = { once: true, passive: true }
+    window.addEventListener('touchstart', play, opts)
+    window.addEventListener('scroll', play, opts)
+    window.addEventListener('click', play, opts)
+    return () => {
+      window.removeEventListener('touchstart', play)
+      window.removeEventListener('scroll', play)
+      window.removeEventListener('click', play)
+    }
+  }, [appRevealed])
+  return ref
+}
 
 function reveal(delay = 0) {
   return {
@@ -64,6 +92,7 @@ function PathCard({ icon, title, desc, delay, onClick }) {
 
 export default function Hero() {
   const { appRevealed } = useApp()
+  const videoRef = useAutoplay(appRevealed)
 
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
@@ -82,11 +111,13 @@ export default function Hero() {
     <section className="grain relative flex h-svh flex-col overflow-hidden bg-primary">
       {/* background video, always covering, softly zooming */}
       <motion.video
+        ref={videoRef}
         src="/bgvideo.mp4"
         autoPlay
         muted
         loop
         playsInline
+        preload="auto"
         className="absolute inset-0 h-full w-full object-cover"
         initial={{ scale: 1.18 }}
         animate={{ scale: 1.04 }}
