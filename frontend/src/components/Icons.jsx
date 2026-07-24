@@ -74,6 +74,14 @@ export function RetweetIcon({ className = 'w-4 h-4' }) {
   )
 }
 
+export function CommentIcon({ className = 'w-4 h-4' }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={className}>
+      <path d="M20 12a7.5 7.5 0 0 1-10.9 6.68L4.5 20l1.32-4.6A7.5 7.5 0 1 1 20 12Z" strokeLinejoin="round" />
+    </svg>
+  )
+}
+
 export function HeartIcon({ className = 'w-4 h-4' }) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={className}>

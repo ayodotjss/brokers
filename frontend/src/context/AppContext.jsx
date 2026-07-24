@@ -10,7 +10,7 @@ const initialState = {
   // scroll sections
   activeSection: 'about', // 'about' | 'whitelist' | 'faq'
   // whitelist flow
-  wlSteps: { follow: false, retweet: false, like: false },
+  wlSteps: { follow: false, retweet: false, like: false, comment: false },
   wlStatus: 'idle', // 'idle' | 'sending' | 'success' | 'error'
   wlMessage: '',
 }

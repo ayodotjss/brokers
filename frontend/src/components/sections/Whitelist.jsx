@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion } from 'motion/react'
 import { useApp } from '../../context/AppContext'
 import { API_BASE } from '../../lib/api'
-import { XIcon, RetweetIcon, HeartIcon, WalletIcon, CheckIcon, LockIcon } from '../Icons'
+import { XIcon, RetweetIcon, HeartIcon, CommentIcon, WalletIcon, CheckIcon, LockIcon } from '../Icons'
 
 const EASE = [0.22, 1, 0.36, 1]
 const X_PROFILE = 'https://x.com/theoctobroker'
@@ -14,6 +14,7 @@ const STEPS = [
   { key: 'follow', icon: <XIcon className="h-4 w-4" />, label: 'Follow @theoctobroker on X', cta: 'Follow', url: X_PROFILE },
   { key: 'retweet', icon: <RetweetIcon className="h-4 w-4" />, label: 'Repost the pinned post', cta: 'Repost', url: X_POST },
   { key: 'like', icon: <HeartIcon className="h-4 w-4" />, label: 'Like the pinned post', cta: 'Like', url: X_POST },
+  { key: 'comment', icon: <CommentIcon className="h-4 w-4" />, label: 'Comment on the pinned post', cta: 'Comment', url: X_POST },
 ]
 
 function StepRow({ n, icon, label, state, cta, pending, onAction }) {
@@ -197,7 +198,7 @@ export default function Whitelist() {
               allDone ? 'bg-secondary/30 text-primary' : 'bg-line text-subtext'
             }`}
           >
-            {allDone ? '4' : <LockIcon className="h-3.5 w-3.5" />}
+            {allDone ? STEPS.length + 1 : <LockIcon className="h-3.5 w-3.5" />}
           </span>
           <span className="hidden h-9 w-9 shrink-0 place-items-center rounded-lg border border-line text-primary sm:grid">
             <WalletIcon className="h-4 w-4" />
