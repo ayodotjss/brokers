@@ -6,13 +6,14 @@ import { XIcon, RetweetIcon, HeartIcon, WalletIcon, CheckIcon, LockIcon } from '
 
 const EASE = [0.22, 1, 0.36, 1]
 const X_PROFILE = 'https://x.com/theoctobroker'
+const X_POST = 'https://x.com/theoctobroker/status/2080611834730590607'
 
 // social steps must be done in order — each one sends you to X and only
 // completes once you come back to the site.
 const STEPS = [
-  { key: 'follow', icon: <XIcon className="h-4 w-4" />, label: 'Follow @theoctobroker on X', cta: 'Follow' },
-  { key: 'retweet', icon: <RetweetIcon className="h-4 w-4" />, label: 'Repost the pinned post', cta: 'Repost' },
-  { key: 'like', icon: <HeartIcon className="h-4 w-4" />, label: 'Like the pinned post', cta: 'Like' },
+  { key: 'follow', icon: <XIcon className="h-4 w-4" />, label: 'Follow @theoctobroker on X', cta: 'Follow', url: X_PROFILE },
+  { key: 'retweet', icon: <RetweetIcon className="h-4 w-4" />, label: 'Repost the pinned post', cta: 'Repost', url: X_POST },
+  { key: 'like', icon: <HeartIcon className="h-4 w-4" />, label: 'Like the pinned post', cta: 'Like', url: X_POST },
 ]
 
 function StepRow({ n, icon, label, state, cta, pending, onAction }) {
@@ -95,9 +96,10 @@ export default function Whitelist() {
 
   const startStep = (key) => {
     if (pending || key !== activeKey) return
+    const step = STEPS.find((s) => s.key === key)
     leftRef.current = false
     setPending(key)
-    window.open(X_PROFILE, '_blank', 'noopener')
+    window.open(step?.url || X_PROFILE, '_blank', 'noopener')
   }
 
   const stateOf = (key) => {
