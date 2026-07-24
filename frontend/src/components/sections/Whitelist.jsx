@@ -7,6 +7,15 @@ import { XIcon, RetweetIcon, HeartIcon, CommentIcon, WalletIcon, CheckIcon, Lock
 const EASE = [0.22, 1, 0.36, 1]
 const X_PROFILE = 'https://x.com/theoctobroker'
 const X_POST = 'https://x.com/theoctobroker/status/2080611834730590607'
+const STORAGE_KEY = 'broker_wl_applied' // remembers a submission in this browser
+
+function readApplied() {
+  try {
+    return localStorage.getItem(STORAGE_KEY)
+  } catch {
+    return null
+  }
+}
 
 // social steps must be done in order — each one sends you to X and only
 // completes once you come back to the site.
@@ -65,6 +74,7 @@ export default function Whitelist() {
   const { wlSteps, wlStatus, wlMessage, dispatch } = useApp()
   const [wallet, setWallet] = useState('')
   const [pending, setPending] = useState(null) // step waiting for you to return
+  const [appliedWallet, setAppliedWallet] = useState(() => readApplied())
   const leftRef = useRef(false)
 
   // the active step is the first one not yet done; everything after it is locked
@@ -129,6 +139,13 @@ export default function Whitelist() {
       })
       const data = await res.json().catch(() => ({}))
       if (!res.ok) throw new Error(data.error || 'Something went wrong. Try again.')
+      const saved = wallet.trim()
+      try {
+        localStorage.setItem(STORAGE_KEY, saved)
+      } catch {
+        /* storage blocked (private mode) — non-fatal */
+      }
+      setAppliedWallet(saved)
       dispatch({
         type: 'WL_STATUS',
         value: 'success',
@@ -169,6 +186,38 @@ export default function Whitelist() {
         </p>
       </motion.div>
 
+      {appliedWallet ? (
+        <motion.div
+          initial={{ y: 24, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.7, ease: EASE }}
+          className="mt-10 max-w-2xl rounded-2xl border border-line bg-card p-8 text-center shadow-broker"
+        >
+          <span className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-primary text-cream">
+            <CheckIcon className="h-6 w-6" />
+          </span>
+          <h3 className="font-display mt-4 text-3xl tracking-wide text-primary">You're on the list</h3>
+          <p className="mt-2 leading-relaxed text-subtext">
+            This browser has already submitted an application. We'll announce everything on X first.
+          </p>
+          {appliedWallet.startsWith('0x') && (
+            <p className="mt-4 inline-block rounded-lg bg-cream/70 px-3 py-1.5 font-mono text-xs text-ink">
+              {appliedWallet.slice(0, 6)}…{appliedWallet.slice(-4)}
+            </p>
+          )}
+          <div className="mt-6">
+            <a
+              href={X_PROFILE}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-xs font-bold uppercase tracking-[0.2em] text-cream transition-colors duration-300 hover:bg-accent"
+            >
+              <XIcon className="h-3.5 w-3.5" /> Follow for updates
+            </a>
+          </div>
+        </motion.div>
+      ) : (
       <form onSubmit={submit} className="mt-10 max-w-2xl space-y-3.5">
         {STEPS.map((s, i) => (
           <StepRow
@@ -249,6 +298,7 @@ export default function Whitelist() {
           </p>
         )}
       </form>
+      )}
     </section>
   )
 }
