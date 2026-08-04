@@ -142,15 +142,18 @@ export default function Hero() {
           <img src="/logo.png" alt="The Broker" className="h-9 w-9 object-contain brightness-0 invert" />
           <span className="font-display text-xl tracking-[0.18em] text-cream">THE BROKER</span>
         </div>
-        <a
-          href="https://x.com/theoctobroker"
-          target="_blank"
-          rel="noreferrer"
-          aria-label="The Broker on X"
-          className="grid h-10 w-10 place-items-center rounded-full border border-cream/30 text-cream transition-all duration-300 hover:border-secondary hover:text-secondary"
-        >
-          <XIcon className="h-4 w-4" />
-        </a>
+        <div className="flex items-center gap-2">
+          <a href="/exchange" className="rounded-full border border-secondary/50 bg-secondary/10 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-secondary transition hover:bg-secondary hover:text-primary">Exchange preview</a>
+          <a
+            href="https://x.com/theoctobroker"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="The Broker on X"
+            className="grid h-10 w-10 place-items-center rounded-full border border-cream/30 text-cream transition-all duration-300 hover:border-secondary hover:text-secondary"
+          >
+            <XIcon className="h-4 w-4" />
+          </a>
+        </div>
       </motion.header>
 
       {/* headline block — ref1 copy, dfr layout */}
