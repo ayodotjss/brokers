@@ -58,7 +58,7 @@ Those results move an OctoBroker through a career path: Junior Broker, Senior Br
 
 You can visit [The Broker Exchange](https://octobroker.xyz/exchange) to choose a market desk, see how the weekly reward pool is divided and walk through the full round.
 
-## One important distinction
+## One important Information
 
 The stocks, ETFs and cryptocurrencies selected for a weekly round are reference assets. Assigning an OctoBroker to Nvidia, Amazon, Ethereum or any other asset does not give the holder shares, tokens or ownership in that asset. The system uses verified market prices only to score the competition and calculate $OCTOBROKER rewards.
 
