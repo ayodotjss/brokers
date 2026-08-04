@@ -2,27 +2,27 @@
 
 Most NFT staking is predictable. You lock an NFT, wait, and collect the same reward as everyone else. There is nothing wrong with that, but there is not much to do either.
 
-We have been thinking about a more active system for The OctoBroker collection. What if holders had to make a market call each week? What if an OctoBroker could be assigned to a stock, ETF or cryptocurrency, and its reward depended partly on how that asset performed?
+The Broker Exchange takes a more active approach. Each week, holders make a market call by assigning an OctoBroker to a stock, ETF or cryptocurrency. The NFT earns a base staking reward, while the performance of its chosen reference asset determines whether it earns a larger share.
 
-That idea became The Broker Exchange, a weekly staking game we are building for Robinhood Chain.
+The result is a weekly staking game on Robinhood Chain where an NFT gets to do the job it was made for: act like a broker.
 
 ## Your NFT becomes the broker
 
-At the start of each week, we will publish a short list of reference assets from several market categories. A round might include Nvidia, JPMorgan, ExxonMobil, Amazon, an S&P 500 ETF and Ethereum.
+At the start of each week, The Broker Exchange publishes a short list of reference assets from different market categories. A round can include Nvidia, JPMorgan, ExxonMobil, Amazon, an S&P 500 ETF and Ethereum.
 
-Holders will connect a wallet, stake an OctoBroker and choose one of those assets. That choice is the Broker's market desk for the week. In simple terms, the NFT owner gets to play the role their NFT was made for.
+Holders connect a wallet, stake an OctoBroker and choose one of those assets. That choice becomes the Broker's market desk for the week.
 
-Selections will lock before the competition begins. A holder will not be able to jump to whichever asset starts winning halfway through the week.
+Every selection locks when the competition begins. A holder cannot jump to whichever asset starts winning halfway through the round.
 
-At the end of the round, the system will compare verified opening and closing prices. Assets will be ranked by percentage change, not by the number of dollars gained. That gives a $20 asset and a $2,000 asset a fair basis for comparison.
+At the end of the week, the system compares verified opening and closing prices. Assets are ranked by percentage change, not by the number of dollars gained. That gives a $20 asset and a $2,000 asset a fair basis for comparison.
 
 Suppose Nvidia finishes the week up 8%, Ethereum is up 6% and JPMorgan is up 4%. Nvidia takes first place, followed by Ethereum and JPMorgan. The OctoBrokers assigned to those desks receive the corresponding reward bonuses.
 
-## A reward pool that pays for participation and good calls
+## A reward pool for participation and good calls
 
-Every participating NFT will receive a base amount of $OCTOBROKER. The strongest market desks will earn more.
+Every participating NFT receives a base amount of $OCTOBROKER. The strongest market desks earn more.
 
-Our current proposal divides each weekly pool like this:
+Each weekly reward pool is divided like this:
 
 - 50% is shared by every participating NFT.
 - 30% goes to Brokers assigned to the first-place asset.
@@ -30,37 +30,33 @@ Our current proposal divides each weekly pool like this:
 - 5% goes to Brokers assigned to the third-place asset.
 - 3% funds streaks, achievements and community bonuses.
 
-These numbers are not final. We want to test the model and hear from the community before locking the distribution.
+Each winning allocation is divided among the NFTs on that desk. This creates an underdog advantage. If a less popular asset unexpectedly takes first place, fewer holders share its 30% allocation. One smart, unpopular call can pay more than following the crowd.
 
-There is also an underdog angle. Each winning allocation is divided among the NFTs on that desk. If a less popular asset unexpectedly takes first place, fewer holders share its 30% allocation. One smart, unpopular call could therefore pay more than following the crowd.
-
-Rarity may add a small benefit, but it will not decide the game. Common OctoBrokers should still be able to compete, while rare traits receive modest bonuses rather than an automatic advantage.
+Rarity adds a small benefit, but it does not decide the game. Common OctoBrokers remain competitive, while rare traits provide modest bonuses rather than an automatic advantage.
 
 ## One token: $OCTOBROKER
 
-$OCTOBROKER will be the reward and utility token for The Broker Exchange. It will have a fixed supply, with a dedicated allocation released over time for staking rewards.
+$OCTOBROKER is the reward and utility token for The Broker Exchange. It has a fixed supply, with a dedicated allocation released over time for weekly staking rewards.
 
-Holders will be able to use the token inside the ecosystem. Planned uses include voting on future weekly asset lists, joining Broker Syndicates, entering additional prediction competitions and accessing seasonal events. We are also exploring token locking for modest reward multipliers.
+Inside the ecosystem, holders use $OCTOBROKER to vote on weekly asset lists, join Broker Syndicates, enter additional prediction competitions and access seasonal events. Token locking provides modest reward multipliers.
 
-Some optional actions may burn $OCTOBROKER, permanently removing those tokens from circulation. The exact token sinks will be set only after we have tested how rewards move through the system.
+Some optional actions burn $OCTOBROKER. Burning permanently removes those tokens from circulation and balances part of the supply distributed through staking. Holders can also swap $OCTOBROKER for ETH through liquidity on Robinhood Chain.
 
-We also plan to support liquidity on Robinhood Chain so holders can swap $OCTOBROKER for ETH. That part depends on the token and liquidity infrastructure being ready; it is not live today.
+## Prediction competitions
 
-## Predictions and progression
+Every staked OctoBroker receives one free prediction entry each week. A holder can predict which asset finishes first, which sector performs best, whether crypto outperforms technology or how many assets close the week in profit.
 
-Market staking is the first part of the plan. After the first season, we want to add weekly prediction competitions. A staked OctoBroker could receive one free entry to predict the winning asset, the strongest sector or whether crypto will outperform technology that week. Correct calls would earn additional $OCTOBROKER.
+Correct predictions earn additional $OCTOBROKER. Extra entries use $OCTOBROKER, adding another reason to earn and use the token within the exchange.
 
-We are also designing achievements around consistent participation. A Broker might earn "Market Reader" after picking a weekly winner or "Contrarian Broker" after winning from the least-selected desk. Repeated success within one category could unlock a "Sector Specialist" achievement.
+## Achievements and Broker progression
 
-Over time, those results could move an OctoBroker through a career path: Junior Broker, Senior Broker, Market Maker, Fund Manager and, eventually, Exchange Director. We want progression to record what a holder has done, not simply how long an NFT has been sitting in a wallet.
+The exchange records more than a single winning week. Holders earn achievements for picking winning assets, maintaining staking streaks and repeatedly performing well within a market category.
 
-## What we are building now
+A Broker earns "Market Reader" after selecting a weekly winner and "Contrarian Broker" after winning from the least-selected desk. Repeated success in one category unlocks "Sector Specialist."
 
-The Broker Exchange is still in development. The collection site and whitelist flow are live, and we now have an interactive interface prototype for the weekly market desk. Smart contracts, verified price feeds, wallet-connected staking and public testing are still ahead of us.
+Those results move an OctoBroker through a career path: Junior Broker, Senior Broker, Market Maker, Fund Manager and Exchange Director. Progress records what the holder has accomplished, not simply how long the NFT has been sitting in a wallet.
 
-The preview uses sample market moves to demonstrate the experience. It does not display live prices, accept funds or execute transactions. We made that distinction visible on the page because showing progress should not mean pretending unfinished work is complete.
-
-You can https://octobroker.xyz/exchange to try the market selection interface, inspect the proposed reward split and follow the build status.
+You can visit [The Broker Exchange](https://octobroker.xyz/exchange) to choose a market desk, see how the weekly reward pool is divided and walk through the full round.
 
 ## One important distinction
 

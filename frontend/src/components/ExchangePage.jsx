@@ -17,11 +17,11 @@ const REWARDS = [
   { label: 'Streaks & achievements', value: 3 },
 ]
 
-const BUILD = [
-  { title: 'Collection experience', status: 'Live', tone: 'bg-secondary text-primary', note: 'Artwork gallery and whitelist flow are available now.' },
-  { title: 'Exchange interface', status: 'In progress', tone: 'bg-cream text-primary', note: 'The market desk and reward model are being prototyped here.' },
-  { title: 'Contracts & price feeds', status: 'Next', tone: 'bg-white/10 text-cream', note: 'Staking logic and verified market data still need integration and testing.' },
-  { title: 'Public test season', status: 'Planned', tone: 'bg-white/10 text-cream', note: 'Wallet-connected testing comes after the core system is ready.' },
+const RULES = [
+  { title: 'The selection window', note: 'Holders choose one of the listed reference assets and assign an OctoBroker to that market desk.' },
+  { title: 'The weekly lock', note: 'Every position locks when the round begins, so nobody can switch desks after prices start moving.' },
+  { title: 'Market settlement', note: 'Verified opening and closing prices determine the percentage change for every reference asset.' },
+  { title: 'Reward distribution', note: 'Every staked Broker earns a base share. The top three desks receive additional rewards.' },
 ]
 
 function Arrow({ className = '' }) {
@@ -42,11 +42,11 @@ function MarketDesk() {
   }, [market, selected])
 
   return (
-    <section id="prototype" className="mx-auto grid max-w-7xl gap-6 px-5 py-16 md:px-8 lg:grid-cols-[1.15fr_.85fr] lg:py-24">
+    <section id="market-desk" className="mx-auto grid max-w-7xl gap-6 px-5 py-16 md:px-8 lg:grid-cols-[1.15fr_.85fr] lg:py-24">
       <div>
         <div className="mb-7 flex items-end justify-between gap-4">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.25em] text-accent">Interactive prototype</p>
+            <p className="text-xs font-bold uppercase tracking-[0.25em] text-accent">Weekly market selection</p>
             <h2 className="font-display mt-2 text-5xl text-primary sm:text-6xl">Choose a market desk</h2>
           </div>
           <span className="hidden rounded-full border border-primary/20 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-primary sm:block">Sample week</span>
@@ -72,20 +72,19 @@ function MarketDesk() {
             </button>
           ))}
         </div>
-        <p className="mt-3 text-xs leading-relaxed text-subtext">All prices, moves, participation and rewards shown here are illustrative. This prototype does not use live market data or accept transactions.</p>
+        <p className="mt-3 text-xs leading-relaxed text-subtext">The figures in this example are illustrative and explain how the weekly ranking works. They are not live market prices.</p>
       </div>
 
       <motion.aside key={market.ticker} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="relative overflow-hidden rounded-3xl bg-primary p-6 text-cream shadow-broker-lg sm:p-8">
         <div className="absolute -right-16 -top-16 h-52 w-52 rounded-full border-[36px] border-secondary/10" />
         <div className="relative">
-          {/* <span className="rounded-full bg-secondary px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.18em] text-primary">Draft allocation</span> */}
           <img src="/octos7.png" alt="OctoBroker in a navy suit" className="mx-auto mt-8 aspect-square w-48 rounded-3xl object-cover shadow-2xl sm:w-56" />
           <div className="mt-7 flex items-end justify-between border-b border-cream/20 pb-5">
             <div><p className="text-xs uppercase tracking-[0.2em] text-cream/50">Broker #007 backs</p><p className="font-display mt-1 text-4xl text-secondary">{market.ticker}</p></div>
             <div className="max-w-44 text-right"><p className="text-xs text-cream/50">Illustrative reward</p><p className="font-display text-xl sm:text-2xl">{estimatedReward} $OCTOBROKER</p></div>
           </div>
           <p className="mt-5 text-sm leading-7 text-cream/70">Once a weekly desk locks, the Broker stays with that reference asset until the round closes. Percentage change decides the ranking.</p>
-          <button disabled className="mt-6 flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-xl bg-cream/15 px-5 py-3.5 text-sm font-bold text-cream/55">Wallet staking is not live yet</button>
+          <div className="mt-6 flex w-full items-center justify-center rounded-xl border border-cream/15 bg-cream/10 px-5 py-3.5 text-sm font-bold text-cream/70">Position locks when the weekly round begins</div>
         </div>
       </motion.aside>
     </section>
@@ -94,7 +93,7 @@ function MarketDesk() {
 
 export default function ExchangePage() {
   useEffect(() => {
-    document.title = 'The Broker Exchange | Product preview'
+    document.title = 'The Broker Exchange | How it works'
     window.scrollTo(0, 0)
   }, [])
 
@@ -103,7 +102,7 @@ export default function ExchangePage() {
       <header className="border-b border-cream/15 bg-primary text-cream">
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 md:px-8">
           <a href="/" className="flex items-center gap-3"><img src="/logo.png" alt="" className="h-9 w-9 brightness-0 invert" /><span className="font-display text-xl tracking-[0.16em]">THE BROKER</span></a>
-          <div className="flex items-center gap-5 text-xs font-bold uppercase tracking-[0.16em]"><a href="#build" className="hidden text-cream/65 transition hover:text-secondary sm:block">Build status</a><a href="/" className="flex items-center gap-2 rounded-full border border-cream/25 px-4 py-2 transition hover:border-secondary hover:text-secondary">Main site <Arrow className="h-4 w-4" /></a></div>
+          <div className="flex items-center gap-5 text-xs font-bold uppercase tracking-[0.16em]"><a href="#how-it-works" className="hidden text-cream/65 transition hover:text-secondary sm:block">How it works</a><a href="/" className="flex items-center gap-2 rounded-full border border-cream/25 px-4 py-2 transition hover:border-secondary hover:text-secondary">Main site <Arrow className="h-4 w-4" /></a></div>
         </nav>
       </header>
 
@@ -112,11 +111,11 @@ export default function ExchangePage() {
           <div className="absolute inset-0 opacity-[0.06] [background-image:linear-gradient(rgba(255,255,255,.7)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.7)_1px,transparent_1px)] [background-size:48px_48px]" />
           <div className="relative mx-auto grid max-w-7xl items-end gap-10 lg:grid-cols-[1fr_330px]">
             <div>
-              <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-secondary/30 bg-secondary/10 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.2em] text-secondary"><span className="h-2 w-2 animate-pulse rounded-full bg-secondary" /> Product preview / building in public</div>
+              <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-secondary/30 bg-secondary/10 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.2em] text-secondary"><span className="h-2 w-2 rounded-full bg-secondary" /> NFT staking powered by market performance</div>
               <p className="text-sm font-bold uppercase tracking-[0.28em] text-secondary">The Broker Exchange</p>
               <h1 className="font-display mt-3 max-w-4xl text-[18vw] leading-[.82] tracking-wide sm:text-8xl lg:text-9xl">PUT YOUR BROKER<br /><span className="text-secondary">ON THE MARKET.</span></h1>
-              <p className="mt-7 max-w-2xl text-base leading-8 text-cream/70 sm:text-lg">We are building a weekly NFT staking game where each OctoBroker backs a real market reference asset. The market moves. The desks rank. The best calls earn more.</p>
-              <a href="#prototype" className="mt-8 inline-flex items-center gap-3 rounded-xl bg-secondary px-6 py-4 text-sm font-extrabold text-primary transition hover:bg-cream">Try the prototype <Arrow className="h-5 w-5" /></a>
+              <p className="mt-7 max-w-2xl text-base leading-8 text-cream/70 sm:text-lg">The Broker Exchange is a weekly NFT staking game where each OctoBroker backs a real market reference asset. The market moves. The desks rank. The best calls earn more.</p>
+              <a href="#market-desk" className="mt-8 inline-flex items-center gap-3 rounded-xl bg-secondary px-6 py-4 text-sm font-extrabold text-primary transition hover:bg-cream">Choose a market desk <Arrow className="h-5 w-5" /></a>
             </div>
             <div className="rounded-3xl border border-cream/15 bg-[#163a21] p-6">
               <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-secondary">The weekly loop</p>
@@ -129,21 +128,21 @@ export default function ExchangePage() {
 
         <section className="border-y border-line bg-card px-5 py-16 md:px-8 lg:py-24">
           <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.75fr_1.25fr]">
-            <div><p className="text-xs font-bold uppercase tracking-[0.25em] text-accent">Proposed model</p><h2 className="font-display mt-2 text-5xl text-primary sm:text-6xl">How the pool could split</h2><p className="mt-5 max-w-md text-sm leading-7 text-subtext">Participation earns a base share. Better market calls earn a larger slice. These percentages are a draft and may change after community review and testing.</p></div>
+            <div><p className="text-xs font-bold uppercase tracking-[0.25em] text-accent">Weekly rewards</p><h2 className="font-display mt-2 text-5xl text-primary sm:text-6xl">How the pool is split</h2><p className="mt-5 max-w-md text-sm leading-7 text-subtext">Participation earns a base share. Better market calls earn a larger slice, with an additional allocation for streaks and achievements.</p></div>
             <div className="space-y-5">{REWARDS.map((reward) => <div key={reward.label}><div className="mb-2 flex justify-between text-sm font-bold"><span>{reward.label}</span><span>{reward.value}%</span></div><div className="h-3 overflow-hidden rounded-full bg-cream"><motion.div initial={{ width: 0 }} whileInView={{ width: `${reward.value}%` }} viewport={{ once: true }} transition={{ duration: .8 }} className="h-full rounded-full bg-primary" /></div></div>)}</div>
           </div>
         </section>
 
-        <section id="build" className="bg-[#0d2414] px-5 py-16 text-cream md:px-8 lg:py-24">
+        <section id="how-it-works" className="bg-[#0d2414] px-5 py-16 text-cream md:px-8 lg:py-24">
           <div className="mx-auto max-w-7xl">
-            <div className="max-w-2xl"><p className="text-xs font-bold uppercase tracking-[0.25em] text-secondary">Build ledger</p><h2 className="font-display mt-2 text-5xl sm:text-6xl">What exists. What comes next.</h2><p className="mt-5 text-sm leading-7 text-cream/60">We would rather show the work than pretend the full exchange is already live. This page is the interface prototype. Contract, oracle and testnet work comes next.</p></div>
-            <div className="mt-10 grid gap-4 sm:grid-cols-2">{BUILD.map((item, i) => <div key={item.title} className="rounded-2xl border border-cream/12 bg-white/[.04] p-6"><div className="flex items-start justify-between gap-4"><span className="font-display text-2xl text-secondary">0{i + 1}</span><span className={`rounded-full px-3 py-1 text-[9px] font-extrabold uppercase tracking-[0.16em] ${item.tone}`}>{item.status}</span></div><h3 className="mt-8 text-lg font-bold">{item.title}</h3><p className="mt-2 text-sm leading-6 text-cream/55">{item.note}</p></div>)}</div>
+            <div className="max-w-2xl"><p className="text-xs font-bold uppercase tracking-[0.25em] text-secondary">Round mechanics</p><h2 className="font-display mt-2 text-5xl sm:text-6xl">One week on the exchange.</h2><p className="mt-5 text-sm leading-7 text-cream/60">Each round follows the same sequence, from choosing a market desk to distributing $OCTOBROKER after prices settle.</p></div>
+            <div className="mt-10 grid gap-4 sm:grid-cols-2">{RULES.map((item, i) => <div key={item.title} className="rounded-2xl border border-cream/12 bg-white/[.04] p-6"><span className="font-display text-2xl text-secondary">0{i + 1}</span><h3 className="mt-8 text-lg font-bold">{item.title}</h3><p className="mt-2 text-sm leading-6 text-cream/55">{item.note}</p></div>)}</div>
           </div>
         </section>
 
-        <section className="px-5 py-16 text-center md:px-8 lg:py-24"><img src="/logo.png" alt="The Broker" className="mx-auto h-16 w-16" /><h2 className="font-display mt-5 text-5xl text-primary sm:text-7xl">Stake your Broker.<br />Choose your market. Beat the week.</h2><p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-subtext">Reference assets are used only to score the game. Backing a stock, ETF or cryptocurrency does not give a player ownership of that asset.</p><a href="https://x.com/theoctobroker" target="_blank" rel="noreferrer" className="mt-7 inline-flex items-center gap-2 font-bold text-primary underline decoration-secondary decoration-2 underline-offset-4">Follow the build on X <Arrow className="h-4 w-4" /></a></section>
+        <section className="px-5 py-16 text-center md:px-8 lg:py-24"><img src="/logo.png" alt="The Broker" className="mx-auto h-16 w-16" /><h2 className="font-display mt-5 text-5xl text-primary sm:text-7xl">Stake your Broker.<br />Choose your market. Beat the week.</h2><p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-subtext">Reference assets are used only to score the game. Backing a stock, ETF or cryptocurrency does not give a player ownership of that asset.</p><a href="https://x.com/theoctobroker" target="_blank" rel="noreferrer" className="mt-7 inline-flex items-center gap-2 font-bold text-primary underline decoration-secondary decoration-2 underline-offset-4">Follow The OctoBroker on X <Arrow className="h-4 w-4" /></a></section>
       </main>
-      <footer className="border-t border-line px-5 py-7 text-center text-[10px] font-bold uppercase tracking-[0.25em] text-subtext">Copyright {new Date().getFullYear()} The Broker / Product preview</footer>
+      <footer className="border-t border-line px-5 py-7 text-center text-[10px] font-bold uppercase tracking-[0.25em] text-subtext">Copyright {new Date().getFullYear()} The Broker / The Broker Exchange</footer>
     </div>
   )
 }

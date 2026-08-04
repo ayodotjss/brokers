@@ -143,7 +143,7 @@ export default function Hero() {
           <span className="font-display text-xl tracking-[0.18em] text-cream">THE BROKER</span>
         </div>
         <div className="flex items-center gap-2">
-          <a href="/exchange" className="rounded-full border border-secondary/50 bg-secondary/10 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-secondary transition hover:bg-secondary hover:text-primary">Exchange preview</a>
+          <a href="/exchange" className="rounded-full border border-secondary/50 bg-secondary/10 px-4 py-2 text-[10px] font-bold uppercase tracking-[0.16em] text-secondary transition hover:bg-secondary hover:text-primary">The Exchange</a>
           <a
             href="https://x.com/theoctobroker"
             target="_blank"
